@@ -1,4 +1,4 @@
-defmodule LeiSearch.Metadata do
+defmodule Fetch.Metadata do
   @moduledoc """
   Fetches the latest metadata about the LEI data, such as the URL to the latest LEI data.
   """

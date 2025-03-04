@@ -10,7 +10,8 @@ defmodule LeiSearch.Application do
     children = [
       # Starts a worker by calling: LeiSearch.Worker.start_link(arg)
       # {LeiSearch.Worker, arg}
-      LeiSearch,
+      Fetch.Latest,
+      LeiSearch
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

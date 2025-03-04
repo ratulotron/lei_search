@@ -14,8 +14,8 @@ defmodule LeiSearch.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      mod: {LeiSearch, []}, # This is the module that starts the application, and the empty list is the argument to the start/2 function in that module
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      mod: {LeiSearch.Application, []}
     ]
   end
 

@@ -7,12 +7,13 @@ defmodule LeiSearch do
   and fetching the data itself.
   """
 
-  alias LeiSearch.Metadata, as: Meta
-  alias LeiDownloader
+  alias Fetch.Latest, as: Latest
+  alias Fetch.Metadata, as: Meta
 
   require Logger
 
-  @behaviour GenServer
+  use GenServer
+
   @impl true
   def init(init_arg) do
     {:ok, init_arg}
@@ -29,20 +30,12 @@ defmodule LeiSearch do
     )
   end
 
-  def fetch_data do
-    with {:ok, url} <- LatestMetadata.fetch_url("csv"),
-         {:ok, path} <- LeiDownloader.fetch(url) do
-      {:ok, "LEI data fetched and parsed successfully to #{path}"}
-    end
-  end
-
   @impl true
   def handle_call(
         :fetch,
         _from,
         %{
           "last_download_url" => last_download_url,
-          "last_downloaded_at" => last_downloaded_at
         } = state
       ) do
     now = :os.system_time(:millisecond)
@@ -53,7 +46,7 @@ defmodule LeiSearch do
     Logger.info("Last download url: #{url}")
 
     if url != last_download_url do
-      case LeiDownloader.fetch(url) do
+      case Latest.fetch(url) do
         {:ok, path} ->
           {:reply, "Data fetched and parsed successfully to #{path}",
            %{

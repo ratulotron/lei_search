@@ -1,0 +1,25 @@
+# Experiments
+
+```elixir
+Mix.install(
+  [
+    {:lei_search, path: Path.join(__DIR__, ".."), env: :dev}
+  ],
+  config_path: :lei_search,
+  lockfile: :lei_search
+)
+```
+
+## Extracting header
+
+```elixir
+# Example, ensure you have the CSV library in your mix.exs file.
+path = "data/your_file.csv" # adjust the path.
+stream = File.stream!(path)
+parsed_csv =
+  stream
+  |> CSV.decode!(headers: true)
+  |> Enum.to_list()
+
+IO.inspect(parsed_csv)
+```
